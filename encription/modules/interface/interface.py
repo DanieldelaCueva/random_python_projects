@@ -1,4 +1,3 @@
-# importation du module externe Tkinter qui nous aide à contruire une interface graphique
 from tkinter import (CENTER, RIGHT, Button, Label, OptionMenu,
                      Radiobutton, StringVar, Text, Entry, messagebox)
 
@@ -22,7 +21,7 @@ class Interface:
 
         ## INTERFACE COMPONENTS
 
-        self._instructions_message = Label(self._window, width=50, height=2, font=("Helvetica", 12), background="#f0f0ed", text="Choose encoding method, mode and key")
+        self._instructions_message = Label(self._window, width=50, height=2, font=("Helvetica", 12), background="#f0f0ed", text="Choose encoding algorithm, mode and key")
         self._instructions_message.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
 
         self._mode_selection = StringVar(self._window, "1")
@@ -40,11 +39,11 @@ class Interface:
             line += 1
 
         # ROT13 is default
-        self._method_select = StringVar(self._window, "ROT13")
+        self._algorithm_select = StringVar(self._window, "ROT13")
 
-        methods = ("ROT13", "CESAR'S CODE", "VIGENERE'S CODE", "POLYBE'S SQUARE")
-        self._method_list = OptionMenu(self._window, self._method_select, *methods, command=self.change_on_method)
-        self._method_list.grid(row = 3, column=0, columnspan=4, padx=10, pady=10)
+        algorithms = ("ROT13", "CESAR'S CODE", "VIGENERE'S CODE", "POLYBE'S SQUARE")
+        self._algorithm_list = OptionMenu(self._window, self._algorithm_select, *algorithms, command=self.change_on_algorithm)
+        self._algorithm_list.grid(row = 3, column=0, columnspan=4, padx=10, pady=10)
 
         self._input_label = Label(self._window,width=50, height=2, font=("Helvetica", 12), background="#f0f0ed", text="Enter a message:                                                                           ")
         self._input_label.grid(row = 4, column=0, columnspan=4, pady=5, sticky="W")
@@ -72,7 +71,7 @@ class Interface:
 
 
     
-    # getters for the input, output, mode, methode, and key
+    # getters for the input, output, mode, algorithm, and key
 
     @property
     def input_content(self):
@@ -80,7 +79,7 @@ class Interface:
 
     @property
     def output_content(self):
-        return self._ouput_field.get("1.0", "end-1c")
+        return self._output_field.get("1.0", "end-1c")
 
     @property
     def mode(self):
@@ -88,8 +87,8 @@ class Interface:
         
     
     @property
-    def method(self):
-        return self._method_select.get()
+    def algorithm(self):
+        return self._algorithm_select.get()
 
     @property
     def key(self):
@@ -114,23 +113,23 @@ class Interface:
 
     def change_on_mode(self):
         if self.mode == "1":
-            self._instructions_message.config(text="Choose a method, mode, and key")
+            self._instructions_message.config(text="Choose an algorithm, mode, and key")
             self._key_label.config(text="Enter key:")
             self._encode_button.config(text="Encode")
         elif self.mode == "2":
-            self._instructions_message.config(text="Choose a method, mode, and key")
+            self._instructions_message.config(text="Choose an algorithm, mode, and key")
             self._key_label.config(text="Enter decoding key:")
             self._encode_button.config(text="Decode")
 
-    def change_on_method(self, *args):
-        if self.method == "ROT13" or self.method == "POLYBE'S SQUARE":
+    def change_on_algorithm(self, *args):
+        if self.algorithm == "ROT13" or self.algorithm == "POLYBE'S SQUARE":
             self._key_label.grid_forget()
             self._key_input.grid_forget()
-        elif self.method == "CESAR'S CODE":
+        elif self.algorithm == "CESAR'S CODE":
             self._key_label.config(text="Enter a gap number")
             self._key_label.grid(row = 8, column=0, columnspan=4, pady=5, sticky="W")
             self._key_input.grid(row = 8, column=1, columnspan=4, pady=5)
-        elif self.method == "VIGENERE'S CODE":
+        elif self.algorithm == "VIGENERE'S CODE":
             self._key_label.config(text="Entrez a key:")
             self._key_label.grid(row = 8, column=0, columnspan=4, pady=5, sticky="W")
             self._key_input.grid(row = 8, column=1, columnspan=4, pady=5)

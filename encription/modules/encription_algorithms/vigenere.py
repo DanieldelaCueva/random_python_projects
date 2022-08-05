@@ -1,100 +1,87 @@
-def vigenere_c(message_clair, cle_orig, alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
+def vigenere_c(clean_message, original_key, alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     """
-        Code un message selon le chiffrement de Vigenère
+        Encodes a message following Vigenere's algorithm
     """
 
-    # convertit le message en texte, affiche une erreur s'il échoue
     try:
-        message_clair = str(message_clair)
+        clean_message = str(clean_message)
     except ValueError:
-        raise ValueError("Message invalide")
+        raise ValueError("Invalid message")
 
-    # vérifie que la clé ne contient que des lettres
-    for caractere in cle_orig.upper():
-        if not caractere in alphabet:
-            raise ValueError("Un caractère de la clé n'appartient pas à l'alphabet. Rappel: la clé ne peut contenir que des lettres non accentuées avec Vigenère. Exceptions: ñ - non admise")
+    for char in original_key.upper():
+        if not char in alphabet:
+            raise ValueError("Some character in the key isn't included in the alphabet")
 
-    message_code = ""
+    encoded_message = ""
 
-    cle = cle_orig.replace(" ", "") # supprime les espaces dans la clé
+    key = original_key.replace(" ", "")
 
-    # s'assure que la clé est assez longue pour coder le message en la répétant autat de fois que nécéssaire
-    while len(cle) < len(message_clair):
-        cle += cle
-
-    k = 0 # ariable qui va contenir l'indice du caractère travaillé de la clé
-
-    for caractere in message_clair.upper():
-        if caractere in alphabet:
-            # somme des indices du caractère obtenu dans l'alphabet et du caractère de la clé correspondant, modulo len(alphabet) pour obtenir son indice dans l'alphabet
-            i = ( alphabet.index(caractere) + alphabet.index(cle.upper()[k]) ) % len(alphabet)
-            k += 1
-
-            message_code += alphabet[i]
-        # code uniquement les caractères présents dans l'alphabet indiqué en paramètre
-        else:
-            message_code += caractere
-    
-    # retourne un dicionaire contenant les caractéristiques du codage et son résultat pour les montrer sur l'interface
-    return {
-        "methode": "Vigenère",
-        "alphabet_base": alphabet,
-        "chiffres_base": None,
-        "cle": cle_orig,
-        "message_clair": message_clair,
-        "message_code": message_code
-    }
-
-def vigenere_d(message_code, cle_orig, alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
-    """
-        Décode un message selon le chiffrement de Vigenère
-    """
-
-    # convertit le message en texte, affiche une erreur s'il échoue
-    try:
-        message_code = str(message_code)
-    except ValueError:
-        raise ValueError("Message invalide")
-
-    # vérifie que la clé ne contient que des lettres
-    for caractere in cle_orig.upper():
-        if not caractere in alphabet:
-            raise ValueError("Un caractère de la clé n'appartient pas à l'alphabet. Rappel: la clé ne peut contenir que des lettres non accentuées avec Vigenère. Exceptions: ñ - non admise")
-
-    message_decode = ""
-
-    cle = cle_orig.replace(" ", "") # supprime les espaces dans la clé
-
-    # s'assure que la clé est assez longue pour décoder le message en la répétant autat de fois que nécéssaire
-    while len(cle) < len(message_code):
-        cle += cle
+    while len(key) < len(clean_message):
+        key += key
 
     k = 0
 
-    for caractere in message_code.upper():
-        if caractere in alphabet:
-            # différence des indices du caractère obtenu dans l'alphabet et du caractère de la clé correspondant
-            i = ( alphabet.index(caractere) - alphabet.index(cle.upper()[k]) )
-            # vérification: l'indice obtenu correspond à une position dans l'alphabet de len(alphabet) lettres
+    for char in clean_message.upper():
+        if char in alphabet:
+            i = ( alphabet.index(char) + alphabet.index(key.upper()[k]) ) % len(alphabet)
+            k += 1
+
+            encoded_message += alphabet[i]
+        else:
+            encoded_message += char
+    
+    return {
+        "algorithm": "Vigenère",
+        "base_alphabet": alphabet,
+        "base_numbers": None,
+        "key": original_key,
+        "clean_message": clean_message,
+        "encoded_message": encoded_message
+    }
+
+def vigenere_d(encoded_message, original_key, alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
+    """
+        Decodes a message following Vigenere's algorithm
+    """
+
+    try:
+        encoded_message = str(encoded_message)
+    except ValueError:
+        raise ValueError("Invalid message")
+
+    for char in original_key.upper():
+        if not char in alphabet:
+            raise ValueError("Some character in the key isn't included in the alphabet")
+
+    clean_message = ""
+
+    key = original_key.replace(" ", "")
+
+    while len(key) < len(encoded_message):
+        key += key
+
+    k = 0
+
+    for char in encoded_message.upper():
+        if char in alphabet:
+            i = ( alphabet.index(char) - alphabet.index(key.upper()[k]) )
             if i < 0:
                 i += len(alphabet)
             k += 1
 
-            message_decode += alphabet[i]
-        # décode uniquement les caractères présents dans l'alphabet indiqué en paramètre
+            clean_message += alphabet[i]
         else:
-            message_decode += caractere
+            clean_message += char
     
-    # retourne un dicionaire contenant les caractéristiques du décodage et son résultat pour les montrer sur l'interface
     return {
-        "methode": "Vigenère",
-        "alphabet_base": alphabet,
-        "chiffres_base": None,
-        "cle": cle_orig,
-        "message_code": message_code,
-        "message_decode": message_decode
+        "algorithm": "Vigenère",
+        "base_alphabet": alphabet,
+        "base_numbers": None,
+        "key": original_key,
+        "encoded_message": encoded_message,
+        "clean_message": clean_message
     }
 
 # si le module n'est pas importé, mais exécuté
 if __name__ == "__main__":
-    print("Vous avez éxécuté le module Vigenère, qui contient les fonctions d'encodage et de décodage selon le code de vignère")
+    print("Vigeneres's module")
