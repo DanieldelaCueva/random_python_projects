@@ -34,7 +34,6 @@ def cesar_c(clean_message, gap=3):
         else:
             encoded_message += char
 
-    # retourne un dicionaire contenant les caractéristiques du codage et son résultat pour les montrer sur l'interface
     return {
         "algorithm": "César",
         "base_alphabet": alphabet,

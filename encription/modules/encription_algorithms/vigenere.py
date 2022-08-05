@@ -82,6 +82,6 @@ def vigenere_d(encoded_message, original_key, alphabet="ABCDEFGHIJKLMNOPQRSTUVWX
         "clean_message": clean_message
     }
 
-# si le module n'est pas importé, mais exécuté
+
 if __name__ == "__main__":
     print("Vigeneres's module")

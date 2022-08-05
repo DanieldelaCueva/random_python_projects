@@ -3,7 +3,7 @@ import datetime, os
 from tkinter import Tk
 from pathlib import Path
 
-# importat class Interface from module inteface
+# import class Interface from module inteface
 from modules.interface.interface import Interface
 
 from modules.encription_algorithms.rot13 import *

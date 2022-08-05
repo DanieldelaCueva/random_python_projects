@@ -35,6 +35,6 @@ def rot13_d(encoded_message):
         "clean_message": result["clean_message"]
     }
 
-# si le module n'est pas importé, mais exécuté
+
 if __name__ == "__main__":
     print("ROT13 module")

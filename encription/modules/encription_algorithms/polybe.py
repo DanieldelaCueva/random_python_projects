@@ -38,7 +38,6 @@ def polybe_c(clean_message, alphabet="ABCDEFGHIJKLMNOPQRSTUVWXY"):
         else:
             encoded_message += char
 
-    # retourne un dicionaire contenant les caractéristiques du encoding et son résultat pour les montrer sur l'interface
     return {
         "algorithm": "Polybe",
         "base_alphabet": alphabet,
