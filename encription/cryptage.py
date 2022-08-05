@@ -1,20 +1,20 @@
-# importation du module externe Tkinter qui nous aide à contruire une interface graphique
+# import Tkinter for the graphical interface
 import datetime, os
 from tkinter import Tk
 from pathlib import Path
 
-# importation de la classe Interface définié dans le module interface du paquet interface
+# importat class Interface from module inteface
 from modules.interface.interface import Interface
 
-from modules.algorithmes.rot13 import *
-from modules.algorithmes.cesar import *
-from modules.algorithmes.vigenere import *
-from modules.algorithmes.polybe import *
+from modules.encription_algorithms.rot13 import *
+from modules.encription_algorithms.cesar import *
+from modules.encription_algorithms.vigenere import *
+from modules.encription_algorithms.polybe import *
  
-def codage():
+def encoding():
 
     """
-        Fonction qui affichera dans le champ de sortie le texte traité quand le bouton est actionné
+        Will show the encoded message when button is clicked
     """
 
     interface.effacer_sortie()
@@ -99,7 +99,7 @@ def sauvegarder():
 # création d'un objet Tk et de l'interface (objet), il sera impossible de changer les dimensions de l'interface
 fenetre_principale = Tk()
 fenetre_principale.resizable(False, False)
-interface = Interface(fenetre_principale, codage, sauvegarder)
+interface = Interface(fenetre_principale, encoding, sauvegarder)
 
 # le script entre dans une boucle infine en attendant qu'un évènement se produise
 fenetre_principale.mainloop()
