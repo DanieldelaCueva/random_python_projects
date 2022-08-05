@@ -42,7 +42,7 @@ class Interface:
         # ROT13 is default
         self._method_select = StringVar(self._window, "ROT13")
 
-        methods = ("ROT13", "CÉSAR'S CODE", "VIGENÈRE'S CODE", "POLYBE'S SQUARE")
+        methods = ("ROT13", "CESAR'S CODE", "VIGENERE'S CODE", "POLYBE'S SQUARE")
         self._method_list = OptionMenu(self._window, self._method_select, *methods, command=self.change_on_method)
         self._method_list.grid(row = 3, column=0, columnspan=4, padx=10, pady=10)
 
@@ -126,11 +126,11 @@ class Interface:
         if self.method == "ROT13" or self.method == "POLYBE'S SQUARE":
             self._key_label.grid_forget()
             self._key_input.grid_forget()
-        elif self.method == "CÉSAR'S CODE":
+        elif self.method == "CESAR'S CODE":
             self._key_label.config(text="Enter a gap number")
             self._key_label.grid(row = 8, column=0, columnspan=4, pady=5, sticky="W")
             self._key_input.grid(row = 8, column=1, columnspan=4, pady=5)
-        elif self.method == "VIGENÈRE'S CODE":
+        elif self.method == "VIGENERE'S CODE":
             self._key_label.config(text="Entrez a key:")
             self._key_label.grid(row = 8, column=0, columnspan=4, pady=5, sticky="W")
             self._key_input.grid(row = 8, column=1, columnspan=4, pady=5)
