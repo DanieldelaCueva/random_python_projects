@@ -59,7 +59,6 @@ def polybe_d(encoded_message, alphabet="ABCDEFGHIJKLMNOPQRSTUVWXY"):
         raise ValueError("Invalid message")
 
     for char in encoded_message.upper():
-        print(char)
         if char in alphabet:
             raise ValueError("Characters can't be decoded with Polybe")
 

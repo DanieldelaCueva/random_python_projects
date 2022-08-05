@@ -44,19 +44,19 @@ def encoding():
                 interface.show_output("")
         else: 
             if interface.algorithm == "ROT13":
-                decoded_message = rot13_d(message)['decoded_message']
+                decoded_message = rot13_d(message)['clean_message']
                 interface.show_output(decoded_message)
 
             elif interface.algorithm == "CESAR'S CODE":
-                decoded_message = cesar_d(message, cle)['decoded_message']
+                decoded_message = cesar_d(message, cle)['clean_message']
                 interface.show_output(decoded_message)
 
             elif interface.algorithm == "VIGENERE'S CODE":
-                decoded_message = vigenere_d(message, cle)['decoded_message']
+                decoded_message = vigenere_d(message, cle)['clean_message']
                 interface.show_output(decoded_message)
 
             elif interface.algorithm == "POLYBE'S SQUARE":
-                decoded_message = polybe_d(message)['decoded_message']
+                decoded_message = polybe_d(message)['clean_message']
                 interface.show_output(decoded_message)
     except ValueError as error:
         interface.show_alert(error)
