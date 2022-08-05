@@ -1,0 +1,5 @@
+Date: 2022-08-05-20h51min33s
+Operation: Encoding
+algorithm: POLYBE'S SQUARE
+Introduced message: This project is great!
+Resulting message: 45232444 41433525151345 2444 2243151145!
