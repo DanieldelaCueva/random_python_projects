@@ -130,7 +130,7 @@ class Interface:
             self._key_label.grid(row = 8, column=0, columnspan=4, pady=5, sticky="W")
             self._key_input.grid(row = 8, column=1, columnspan=4, pady=5)
         elif self.algorithm == "VIGENERE'S CODE":
-            self._key_label.config(text="Entrez a key:")
+            self._key_label.config(text="Enter a key:")
             self._key_label.grid(row = 8, column=0, columnspan=4, pady=5, sticky="W")
             self._key_input.grid(row = 8, column=1, columnspan=4, pady=5)
     
