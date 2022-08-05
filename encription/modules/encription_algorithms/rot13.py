@@ -1,42 +1,40 @@
 from .cesar import cesar_c, cesar_d
 
-def rot13_c(message_clair):
+def rot13_c(clean_message):
     """
-    Retourne un message reçu en paramètre codé selon la méthode ROT-13.
+    Encodes a message following rot13 algorithm
     """
 
-    # rot13 est le code de césar avec un décalage de 13
-    resultats = cesar_c(message_clair, 13)
+    # rot13 is cesar with a gap of 13
+    result = cesar_c(clean_message, 13)
 
-    # retourne un dicionaire contenant les caractéristiques du codage et son résultat pour les montrer sur l'interface
+
     return {
-        "methode": "ROT13",
-        "alphabet_base": resultats["alphabet_base"],
-        "chiffres_base": resultats["chiffres_base"],
-        "cle": None,
-        "message_clair": message_clair,
-        "message_code": resultats["message_code"]
+        "algorithm": "ROT13",
+        "base_alphabet": result["base_alphabet"],
+        "base_numbers": result["base_numbers"],
+        "key": None,
+        "clean_message": clean_message,
+        "encoded_message": result["encoded_message"]
     }
 
-def rot13_d(message_code):
+def rot13_d(encoded_message):
     """
-    Retourne décodé un message préalablement codé selon la méthode ROT-13.
-    Le message est reçu en paramètre.
+    Returns a message decoded following rot13 algorithm
     """
 
-    # rot13 est le code de césar avec un décalage de 13
-    resultats = cesar_d(message_code, 13)
+    # rot13 is Cesar with a gap of 13
+    result = cesar_d(encoded_message, 13)
 
-    # retourne un dicionaire contenant les caractéristiques du décodage et son résultat pour les montrer sur l'interface
     return {
-        "methode": "ROT13",
-        "alphabet_base": resultats["alphabet_base"],
-        "chiffres_base": resultats["chiffres_base"],
+        "algorithm": "ROT13",
+        "base_alphabet": result["base_alphabet"],
+        "base_numbers": result["base_numbers"],
         "cle": None,
-        "message_code": message_code,
-        "message_decode": resultats["message_decode"]
+        "encoded_message": encoded_message,
+        "clean_message": result["clean_message"]
     }
 
 # si le module n'est pas importé, mais exécuté
 if __name__ == "__main__":
-    print("Vous avez éxécuté le module ROT13, qui contient les fonctions d'encodage et de décodage selon le la méthode rot13")
+    print("ROT13 module")

@@ -24,38 +24,38 @@ def encoding():
 
     try:
         if interface.mode == "1":
-            if interface.method == "ROT13":
+            if interface.algorithm == "ROT13":
                 encoded_message = rot13_c(message)['encoded_message']
                 interface.show_output(encoded_message)
 
-            elif interface.method == "CESAR'S CODE":
+            elif interface.algorithm == "CESAR'S CODE":
                 encoded_message = cesar_c(message, cle)['encoded_message']
                 interface.show_output(encoded_message)
 
-            elif interface.method == "VIGENERE'S CODE":
+            elif interface.algorithm == "VIGENERE'S CODE":
                 encoded_message = vigenere_c(message, cle)['encoded_message']
                 interface.show_output(encoded_message)
 
-            elif interface.method == "POLYBE'S SQUARE":
+            elif interface.algorithm == "POLYBE'S SQUARE":
                 encoded_message = polybe_c(message)['encoded_message']
                 interface.show_output(encoded_message)
 
             else:
                 interface.show_output("")
         else: 
-            if interface.method == "ROT13":
+            if interface.algorithm == "ROT13":
                 decoded_message = rot13_d(message)['decoded_message']
                 interface.show_output(decoded_message)
 
-            elif interface.method == "CESAR'S CODE":
+            elif interface.algorithm == "CESAR'S CODE":
                 decoded_message = cesar_d(message, cle)['decoded_message']
                 interface.show_output(decoded_message)
 
-            elif interface.method == "VIGENERE'S CODE":
+            elif interface.algorithm == "VIGENERE'S CODE":
                 decoded_message = vigenere_d(message, cle)['decoded_message']
                 interface.show_output(decoded_message)
 
-            elif interface.method == "POLYBE'S SQUARE":
+            elif interface.algorithm == "POLYBE'S SQUARE":
                 decoded_message = polybe_d(message)['decoded_message']
                 interface.show_output(decoded_message)
     except ValueError as error:
@@ -81,12 +81,12 @@ def save():
             f.write('Operation: Decoding')
             f.write("\n")
 
-        f.write("Method: " + interface.method)
+        f.write("algorithm: " + interface.algorithm)
         f.write("\n")
-        if interface.method == "VIGENERE'S CODE":
+        if interface.algorithm == "VIGENERE'S CODE":
             f.write('Key: ' + interface.key)
             f.write("\n")
-        if interface.method == "CESAR'S CODE":
+        if interface.algorithm == "CESAR'S CODE":
             f.write('Gap: ' + interface.key)
             f.write("\n")
         f.write('Introduced message: ' + interface.input_content)
@@ -98,5 +98,4 @@ main_window = Tk()
 main_window.resizable(False, False)
 interface = Interface(main_window, encoding, save)
 
-# le script entre dans une boucle infine en attendant qu'un évènement se produise
 main_window.mainloop()

@@ -1,103 +1,96 @@
 alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-chiffres="0123456789"
+numbers="0123456789"
 
-def cesar_c(message_clair, decalage=3):
+def cesar_c(clean_message, gap=3):
 
     """
-    Retourne un message reçu en paramètre codé selon la méthode du code de César.
+    Encodes following cesar's algorithm
     """
 
-    # convertit le message en texte, affiche une erreur s'il échoue
     try:
-        message_clair = str(message_clair)
+        clean_message = str(clean_message)
     except ValueError:
-        raise ValueError("Message invalide")
+        raise ValueError("Invalid message")
 
-    # convertit decalage en entier et si ce n'est pas possible car il s'agit d'un caractere, affiche une erreur
     try:
-        decalage = int(decalage)
+        gap = int(gap)
     except ValueError:
-        raise ValueError("La clé avec César doit être un décalage numérique")
+        raise ValueError("In Cesar's algorithm, key must be an integer gap")
 
-    message_code = ""
+    encoded_message = ""
 
-    for caractere in message_clair.upper():
-        if caractere in alphabet: # vérifie si le caractère est une lettre pour la coder, ou le laisser inchangé si ce ne l'est pas
-            i = alphabet.index(caractere) 
-            i_codage = (i+decalage)%26 # codage de la lettre avec le décalage indiqué
+    for char in clean_message.upper():
+        if char in alphabet: 
+            i = alphabet.index(char) 
+            encoded_i = (i+gap)%26
             
-            message_code += alphabet[i_codage]
+            encoded_message += alphabet[encoded_i]
 
-        elif caractere in chiffres: # vérifie si le caractère est un chiffre pour le coder, ou le laisser inchangé si ce ne l'est pas
-            i = chiffres.index(caractere)
-            i_codage = (i+decalage)%10 # codage d'un chiffre avec le décalage indiqué
+        elif char in numbers:
+            i = numbers.index(char)
+            encoded_i = (i+gap)%10
             
-            message_code += chiffres[i_codage]
+            encoded_message += numbers[encoded_i]
         else:
-            message_code += caractere
+            encoded_message += char
 
     # retourne un dicionaire contenant les caractéristiques du codage et son résultat pour les montrer sur l'interface
     return {
-        "methode": "César",
-        "alphabet_base": alphabet,
-        "chiffres_base": chiffres,
-        "cle": decalage,
-        "message_clair": message_clair,
-        "message_code": message_code
+        "algorithm": "César",
+        "base_alphabet": alphabet,
+        "base_numbers": numbers,
+        "key": gap,
+        "clean_message": clean_message,
+        "encoded_message": encoded_message
     }
 
-def cesar_d(message_code, decalage=3):
+def cesar_d(encoded_message, gap=3):
     """
-    Retourne décodé un message préalablement codé selon la méthode de César. Le message est reçu en paramètre.
+    Decodes follwoing cesar's algorithm
     """
 
-    # convertit le message en texte, affiche une erreur s'il échoue
     try:
-        message_code = str(message_code)
+        encoded_message = str(encoded_message)
     except ValueError:
-        raise ValueError("Message invalide")
+        raise ValueError("Invalid message")
 
-    # convertit decalage en entier et si ce n'est pas possible car il s'agit d'un caractere, affiche une erreur
     try:
-        decalage = int(decalage)
+        gap = int(gap)
     except ValueError:
-        raise ValueError("La clé avec César doit être un décalage numérique")
+        raise ValueError("In Cesar's algorithm, key must be an integer gap")
 
-    message_decode = ""
+    clean_message = ""
 
-    for caractere in message_code.upper():
-        if caractere in alphabet: # vérifie si le caractère est une lettre pour la décoder
-            i = alphabet.index(caractere)
-            i_decodage = i - decalage
+    for char in encoded_message.upper():
+        if char in alphabet:
+            i = alphabet.index(char)
+            decoding_i = i - gap
 
-            # vérification: le codage se réalise pour des indices de 0 à 25 (26 lettres dans l'alphabet)
-            if i_decodage < 0:
-                i_decodage += 26
+            if decoding_i < 0:
+                decoding_i += 26
 
-            message_decode += alphabet[i_decodage]
+            clean_message += alphabet[decoding_i]
 
-        elif caractere in chiffres: #vérifie si le caractère est un chiffre pour le décoder
-            i = chiffres.index(caractere)
-            i_decodage = i-decalage
+        elif char in numbers:
+            i = numbers.index(char)
+            decoding_i = i-gap
 
-            # vérification: le codage se réalise pour des indices de 0 à 9 (10 chiffres de base)
-            if i_decodage < 0:
-                i_decodage += 10
+            if decoding_i < 0:
+                decoding_i += 10
                 
-            message_decode += chiffres[i_decodage]
+            clean_message += numbers[decoding_i]
         else:
-            message_decode += caractere
+            clean_message += char
 
-    #retourne un dicionaire contenant les caractéristiques du décodage et son résultat pour les montrer sur l'interface
+    
     return {
-        "methode": "César",
-        "alphabet_base": alphabet,
-        "chiffres_base": chiffres,
-        "cle": decalage,
-        "message_code": message_code,
-        "message_decode": message_decode
+        "algorithm": "Cesar",
+        "base_alphabet": alphabet,
+        "base_numbers": numbers,
+        "key": gap,
+        "encoded_message": encoded_message,
+        "clean_message": clean_message
     }
 
-# si le module n'est pas importé, mais exécuté
 if __name__ == "__main__":
-    print("Vous avez éxécuté le module César, qui contient les fonctions d'encodage et de décodage selon le code de césar")
+    print("Cesar module")

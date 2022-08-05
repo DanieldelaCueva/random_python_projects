@@ -1,105 +1,92 @@
-chiffres="0123456789"
+numbers="0123456789"
 
-def creer_grille(alphabet):
-    # vérifie que l'alphabet introduit a bien une longeur de 25, arrete l'exécution sdu programme et affiche une erreur sinon
+def create_grid(alphabet):
     if len(alphabet) != 25:
-        raise ValueError("L'alphabet doit comporter 25 lettres")
+        raise ValueError("The alphabet must me 25 letters long")
 
-    # construit la grille de codage (matrice) a partir de l'alphabet de 25 lettres donné
-    grille = list()
+    grid = list()
     for i in range(1, 6):
-        ligne = alphabet[5*(i-1) : (5*i)]
-        grille.append(list(ligne))
-    return grille
+        line = alphabet[5*(i-1) : (5*i)]
+        grid.append(list(line))
+    return grid
 
-def polybe_c(message_clair, alphabet="ABCDEFGHIJKLMNOPQRSTUVWXY"):
+def polybe_c(clean_message, alphabet="ABCDEFGHIJKLMNOPQRSTUVWXY"):
 
     """
-        Code un message selon le chiffrement de Polybe
+        Encodes following polybe's algorithm
     """
 
-    # convertit le message en texte, affiche une erreur s'il échoue
     try:
-        message_clair = str(message_clair)
+        clean_message = str(clean_message)
     except ValueError:
-        raise ValueError("Message invalide")
+        raise ValueError("Invalid message")
 
-    grille = creer_grille(alphabet)
+    grid = create_grid(alphabet)
 
-    message_code = ""
+    encoded_message = ""
 
-    for caractere in message_clair.upper():
-        if caractere in alphabet:
-            codage = ""
-            # cherche dans quelle ligne de la matrice de codage se trouve le caractère à coder, joint sa ligne et colonne au message
-            for ligne in grille:
-                if caractere in ligne:
-                    codage += str(grille.index(ligne) + 1)
-                    codage += str(ligne.index(caractere) + 1)
-                    message_code += codage
-        elif caractere in chiffres:
-            # affiche une erreur si le caractère à coder est un chiffre
-            raise ValueError("Les chiffres ne peuvent pas être encodés avec Polybe")
+    for char in clean_message.upper():
+        if char in alphabet:
+            encoding = ""
+            for line in grid:
+                if char in line:
+                    encoding += str(grid.index(line) + 1)
+                    encoding += str(line.index(char) + 1)
+                    encoded_message += encoding
+        elif char in numbers:
+            raise ValueError("Numbers can't be encoded with Polybe")
         else:
-            message_code += caractere
+            encoded_message += char
 
-    # retourne un dicionaire contenant les caractéristiques du codage et son résultat pour les montrer sur l'interface
+    # retourne un dicionaire contenant les caractéristiques du encoding et son résultat pour les montrer sur l'interface
     return {
-        "methode": "Polybe",
-        "alphabet_base": alphabet,
-        "chiffres_base": chiffres,
-        "cle": None,
-        "message_clair": message_clair,
-        "message_code": message_code
+        "algorithm": "Polybe",
+        "base_alphabet": alphabet,
+        "base_numbers": numbers,
+        "key": None,
+        "clean_message": clean_message,
+        "encoded_message": encoded_message
     }
 
-def polybe_d(message_code, alphabet="ABCDEFGHIJKLMNOPQRSTUVWXY"):
+def polybe_d(encoded_message, alphabet="ABCDEFGHIJKLMNOPQRSTUVWXY"):
 
     """
-        Décode un message selon le chiffrement de Polybe
+        Decodes a message following Polybe's algorithm
     """
 
-    # convertit le message en texte, affiche une erreur s'il échoue
     try:
-        message_code = str(message_code)
+        encoded_message = str(encoded_message)
     except ValueError:
-        raise ValueError("Message invalide")
+        raise ValueError("Invalid message")
 
-    for caractere in message_code.upper():
-        print(caractere)
-        if caractere in alphabet:
-            raise ValueError("Les lettres ne peuvent pas être décodées avec Polybe")
+    for char in encoded_message.upper():
+        print(char)
+        if char in alphabet:
+            raise ValueError("Characters can't be decoded with Polybe")
 
-    grille = creer_grille(alphabet)
-    message_decode = ""
+    grid = create_grid(alphabet)
+    clean_message = ""
 
-    # la variable i sera incrémentée de 2 si sa position dans le message contient un chiffre 
-    # (message_code[i]-1 et message_code[i+1]-1 seront les indices sur la matrice d'une lettre)
-    # et sera incrémentée de 1 si le caractère trouvé est diférent (espace, ponctuation)
     i = 0
     
-    while i < len(message_code):
-        if message_code[i] in chiffres:
-            # ajoute au message décodé le cactère trouvé sur la grille en fonction de ses coordonnées (indiquées sur le message codé)
-            x = int(message_code[i])-1
-            y = int(message_code[i+1])-1
-            message_decode += str(grille[x][y])
+    while i < len(encoded_message):
+        if encoded_message[i] in numbers:
+            x = int(encoded_message[i])-1
+            y = int(encoded_message[i+1])-1
+            clean_message += str(grid[x][y])
             i+=2
         else:
-            message_decode += message_code[i]
+            clean_message += encoded_message[i]
             i+=1
     
-        
-    # retourne un dicionaire contenant les caractéristiques du codage et son résultat pour les montrer sur l'interface
     return {
-        "methode": "Polybe",
-        "alphabet_base": alphabet,
-        "chiffres_base": chiffres,
+        "algorithm": "Polybe",
+        "base_alphabet": alphabet,
+        "base_numbers": numbers,
         "cle": None,
-        "message_code": message_code,
-        "message_decode": message_decode
+        "encoded_message": encoded_message,
+        "clean_message": clean_message
     }
 
-# si le module n'est pas importé, mais exécuté
 if __name__ == "__main__":
-    print("Vous avez éxécuté le module Polybe, qui contient les fonctions d'encodage et de décodage selon le carré de polybe")
+    print("Polybe module")
