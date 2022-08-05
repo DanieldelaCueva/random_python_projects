@@ -22,15 +22,15 @@ class Interface:
 
         ## INTERFACE COMPONENTS
 
-        self._instructions_message = Label(self._window, width=50, height=2, font=("Helvetica", 12), background="#f0f0ed", text="Choose encoding methos, mode and key")
+        self._instructions_message = Label(self._window, width=50, height=2, font=("Helvetica", 12), background="#f0f0ed", text="Choose encoding method, mode and key")
         self._instructions_message.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
 
         self._mode_selection = StringVar(self._window, "1")
 
         # dict containing the buttons to generate
         modes = {
-            "Encoder": "1",
-            "Décoder": "2"
+            "Encode": "1",
+            "Decode": "2"
         }
 
         # loop for button creation

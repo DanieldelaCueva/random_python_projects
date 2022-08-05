@@ -17,89 +17,86 @@ def encoding():
         Will show the encoded message when button is clicked
     """
 
-    interface.effacer_sortie()
+    interface.clean_output()
 
-    message = interface.get_entree()
-    cle = interface.get_cle()
+    message = interface.input_content
+    cle = interface.key
 
     try:
-        if interface.get_mode() == "1":
-            if interface.get_methode() == "ROT13":
-                message_code = rot13_c(message)['message_code']
-                interface.afficher_sortie(message_code)
+        if interface.mode == "1":
+            if interface.method == "ROT13":
+                encoded_message = rot13_c(message)['encoded_message']
+                interface.show_output(encoded_message)
 
-            elif interface.get_methode() == "CODE DE CÉSAR":
-                message_code = cesar_c(message, cle)['message_code']
-                interface.afficher_sortie(message_code)
+            elif interface.method == "CESAR'S CODE":
+                encoded_message = cesar_c(message, cle)['encoded_message']
+                interface.show_output(encoded_message)
 
-            elif interface.get_methode() == "CODE DE VIGENÈRE":
-                message_code = vigenere_c(message, cle)['message_code']
-                interface.afficher_sortie(message_code)
+            elif interface.method == "VIGENERE'S CODE":
+                encoded_message = vigenere_c(message, cle)['encoded_message']
+                interface.show_output(encoded_message)
 
-            elif interface.get_methode() == "CARRÉ DE POLYBE":
-                message_code = polybe_c(message)['message_code']
-                interface.afficher_sortie(message_code)
+            elif interface.method == "POLYBE'S SQUARE":
+                encoded_message = polybe_c(message)['encoded_message']
+                interface.show_output(encoded_message)
 
             else:
-                interface.afficher_sortie("")
+                interface.show_output("")
         else: 
-            if interface.get_methode() == "ROT13":
-                message_decode = rot13_d(message)['message_decode']
-                interface.afficher_sortie(message_decode)
+            if interface.method == "ROT13":
+                decoded_message = rot13_d(message)['decoded_message']
+                interface.show_output(decoded_message)
 
-            elif interface.get_methode() == "CODE DE CÉSAR":
-                message_decode = cesar_d(message, cle)['message_decode']
-                interface.afficher_sortie(message_decode)
+            elif interface.method == "CESAR'S CODE":
+                decoded_message = cesar_d(message, cle)['decoded_message']
+                interface.show_output(decoded_message)
 
-            elif interface.get_methode() == "CODE DE VIGENÈRE":
-                message_decode = vigenere_d(message, cle)['message_decode']
-                interface.afficher_sortie(message_decode)
+            elif interface.method == "VIGENERE'S CODE":
+                decoded_message = vigenere_d(message, cle)['decoded_message']
+                interface.show_output(decoded_message)
 
-            elif interface.get_methode() == "CARRÉ DE POLYBE":
-                message_decode = polybe_d(message)['message_decode']
-                interface.afficher_sortie(message_decode)
-    # affiche une erreur si elle se produit
+            elif interface.method == "POLYBE'S SQUARE":
+                decoded_message = polybe_d(message)['decoded_message']
+                interface.show_output(decoded_message)
     except ValueError as error:
-        interface.afficher_alerte(error)
+        interface.show_alert(error)
 
-def sauvegarder():
+def save():
 
     """
-        Fonction qui crée un fichier texte avec les métadonnées de l'opération
+        Creates a text file with operation's metadata
     """
 
     date = datetime.datetime.now().strftime('%Y-%m-%d-%Hh%Mmin%Ss')
     
-    adresse_fichier = f"{Path(__file__).parent}/output/{date}.txt" # le fichier .txt avec les métadonnées sera enregisté dans le directoire "output", avec la date d'enregistrement comme nom de fichier
+    file_location = f"{Path(__file__).parent}/output/{date}.txt"
 
-    # crée un fichier texte, y écrit les différentes métadonnées et données du codage, enfonction de la méthode également
-    with open(adresse_fichier, 'x', encoding='utf8') as f:
+    with open(file_location, 'x', encoding='utf8') as f:
         f.write('Date: ' + date)
         f.write("\n")
-        if interface.get_mode() == "1":
-            f.write('Opération: Encodage')
+        if interface.mode == "1":
+            f.write('Operation: Encoding')
             f.write("\n")
         else:
-            f.write('Opération: Décodage')
+            f.write('Operation: Decoding')
             f.write("\n")
 
-        f.write("Méthode: " + interface.get_methode())
+        f.write("Method: " + interface.method)
         f.write("\n")
-        if interface.get_methode() == "CODE DE VIGENÈRE":
-            f.write('Clé: ' + interface.get_cle())
+        if interface.method == "VIGENERE'S CODE":
+            f.write('Key: ' + interface.key)
             f.write("\n")
-        if interface.get_methode() == "CODE DE CÉSAR":
-            f.write('Décalage: ' + interface.get_cle())
+        if interface.method == "CESAR'S CODE":
+            f.write('Gap: ' + interface.key)
             f.write("\n")
-        f.write('Message introduit: ' + interface.get_entree())
+        f.write('Introduced message: ' + interface.input_content)
         f.write("\n")
-        f.write('Message résultant: ' + interface.get_sortie())
+        f.write('Resulting message: ' + interface.output_content)
 
 
-# création d'un objet Tk et de l'interface (objet), il sera impossible de changer les dimensions de l'interface
-fenetre_principale = Tk()
-fenetre_principale.resizable(False, False)
-interface = Interface(fenetre_principale, encoding, sauvegarder)
+main_window = Tk()
+main_window.resizable(False, False)
+interface = Interface(main_window, encoding, save)
 
 # le script entre dans une boucle infine en attendant qu'un évènement se produise
-fenetre_principale.mainloop()
+main_window.mainloop()
