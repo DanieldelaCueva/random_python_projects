@@ -115,7 +115,7 @@ humidity
 gun
 mobile
 sadness
-hipop
+hipo
 bed
 tree
 speech
