@@ -15,12 +15,10 @@ def setup():
     }
 
 def main():
-    player_wins = False
     game_data = setup()
 
     while list(game_data["word"]) != game_data["word_prompt"]:
         os.system("clear")
-        print(game_data["word"])
         print("Guess the word!")
         for char in game_data["word_prompt"]:
             print(char, end=" ")
