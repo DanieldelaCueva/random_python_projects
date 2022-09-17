@@ -1,6 +1,3 @@
-from cgi import print_exception
-
-
 class Fraction:
     """
         A fraction represents a number in the a/b form. Takes a fraction-like formatted string and returns a fraction object.
@@ -65,11 +62,69 @@ class Fraction:
     def updateFraction(self):
         self._fraction = self.simplify(f"{self._numerator}/{self._denominator}")
 
-    def add(self, new_value):
-        pass
+    def add(self, *args, apply=True):
+        """
+            Adds to the fraction the ints, floats or fractions given as arguments. Takes apply argument to check whether to persist changes or not.
+        """
+        if apply:
+            for value in args:
+                if type(value) == int:
+                    num_to_add = value*self._denominator
+                    self._numerator += num_to_add
+                    self.updateFraction()
+                if type(value) == Fraction:
+                    self._numerator = self._numerator * value._denominator + value._numerator * self._denominator
+                    self._denominator = self._denominator * value._denominator
+                    self.updateFraction()
+                else:
+                    raise ValueError("Invalid term. Term should be either int or Fraction")
+            return self._fraction
+        else:
+            temp = Fraction(f"{self._numerator}/{self._denominator}")
+            for value in args:
+                if type(value) == int:
+                    num_to_add = value*temp._denominator
+                    temp._numerator += num_to_add
+                    temp.updateFraction()
+                if type(value) == Fraction:
+                    temp._numerator = temp._numerator * value._denominator + value._numerator * temp._denominator
+                    temp._denominator = temp._denominator * value._denominator
+                    temp.updateFraction()
+                else:
+                    raise ValueError("Invalid term. Term should be either int or Fraction")
+            return temp._fraction
 
-    def subtract(self, new_value):
-        pass
+    def substract(self, *args, apply=True):
+        """
+            Adds to the fraction the ints, floats or fractions given as arguments. Takes apply argument to check whether to persist changes or not.
+        """
+        if apply:
+            for value in args:
+                if type(value) == int:
+                    num_to_add = value*self._denominator
+                    self._numerator -= num_to_add
+                    self.updateFraction()
+                if type(value) == Fraction:
+                    self._numerator = self._numerator * value._denominator - value._numerator * self._denominator
+                    self._denominator = self._denominator * value._denominator
+                    self.updateFraction()
+                else:
+                    raise ValueError("Invalid term. Term should be either int or Fraction")
+            return self._fraction
+        else:
+            temp = Fraction(f"{self._numerator}/{self._denominator}")
+            for value in args:
+                if type(value) == int:
+                    num_to_add = value*temp._denominator
+                    temp._numerator -= num_to_add
+                    temp.updateFraction()
+                if type(value) == Fraction:
+                    temp._numerator = temp._numerator * value._denominator - value._numerator * temp._denominator
+                    temp._denominator = temp._denominator * value._denominator
+                    temp.updateFraction()
+                else:
+                    raise ValueError("Invalid term. Term should be either int or Fraction")
+            return temp._fraction
 
     def multiply(self, *args, apply=True):
         """
@@ -130,7 +185,3 @@ class Fraction:
                 else:
                     raise ValueError("Invalid factor. Factor should be either int, float or Fraction")
             return temp._fraction
-
-f1 = Fraction("1/3")
-print(f1.divide(Fraction("4/3"), 4, apply=False))
-print(f1)
